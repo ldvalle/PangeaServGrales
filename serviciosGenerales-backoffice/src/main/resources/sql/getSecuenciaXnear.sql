@@ -1,0 +1,1 @@
+SELECT correlativo FROM xnear2:secuen
