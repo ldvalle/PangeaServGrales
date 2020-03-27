@@ -1,0 +1,302 @@
+CONTACTO-SEGEN - +OT
+====================
+
+Para la Ate.Comercial, yo ya había desarrollado y probado la generación de la OT. 
+Para la Incorporación NO, porque los datos necesarios son muchos y muy variables 
+en función del motivo de la solicitud de suministro y características del cliente. 
+
+Pero para Contacto-Segen, es como sigue.
+
+Si el tema asociado a los motivos genera OT, deberémos generar la OT.
+Como saber ésta circunstancia ?
+
+	Este query ya lo deberíamos estar ejecutando desde antes.
+	
+	SELECT tt_cod_tema, tt_cod_trabajo, 
+		t1.descripcion, t2.descripcion, TRIM(t1.valor_alf) genOT
+		FROM contacto:ct_tab_mot_tt, tabla t1, tabla t2 
+		WHERE tt_cod_motivo = ? 
+		AND tt_cod_mot_empresa = ? 
+		AND t1.sucursal = '0000' 
+		AND t1.nomtabla = 'TEMAS' 
+		AND t1.codigo = tt_cod_tema 
+		AND t1.fecha_activacion <= TODAY 
+		AND (t1.fecha_desactivac IS NULL OR t1.fecha_desactivac > TODAY) 
+		AND t2.sucursal = '0000' 
+		AND t2.nomtabla = 'TRABAJ' 
+		AND t2.codigo = tt_cod_trabajo 
+		AND t2.fecha_activacion <= TODAY 
+		AND (t2.fecha_desactivac IS NULL OR t2.fecha_desactivac > TODAY) 
+	
+	Si el último campo del select que levanto (TRIM(t1.valor_alf) genOT) = "OT"
+	Entónces se debe generar la OT.
+	Esta condición ya la deberíamos estar recuperando, incluso antes de generar el segen, ya que 
+	bajo estas circunstancias, al TEXTON del mensaje se le deben agregar el listado de OT pendientes
+	que tenga el cliente (así funciona hoy la aplicación MAC). Este listado se obtiene de...
+	
+	SELECT ot_numero_cliente, 
+		ot_mensaje_xnear, 
+		ot_proced,
+		ot_nro_solicitud,
+		ot_status,
+		ot_fecha_inicio
+		FROM ot_mac 
+		WHERE ot_numero_cliente = ? 
+		AND ot_status <> 'A'
+		ORDER BY ot_fecha_inicio
+
+	Y en el fuente mío, yo venía armando la cadena, de la siguiente manera.
+	
+			while(rs.next()){
+				if(i==0) {
+					sCadena="El cliente tiene las siguientes OTs Activas\r\n";
+					i=1;
+				}
+				lOTNroCliente = rs.getLong(1);
+				lNroMsg = rs.getLong(2);
+				sProced = rs.getString(3);
+				lNroSolicitud = rs.getLong(4);
+				sOTStatus = rs.getString(5);
+				dFechaInicio = rs.getDate(6);
+				sFechaAux = fmtDate.format(dFechaInicio);
+				sCadena += "Mensaje " + sProced.trim() + " " + lNroMsg + " del " + sFechaAux + "\r\n";
+			}
+
+	Para luego y antes de lanzar el XPRO_ENVIAR..
+	
+			//Armar Mensaje
+			mensajeDTO regMen = new mensajeDTO(lNroMensaje, fechaInicio, sRolOrigen, sRolDestino, sAreaDestino, "M_SEGEN", miCliente, regConta, regMot, miTema, regPar, vecObserva);
+			if(miTema.sGeneraOT.equals("OT")) {
+				regMen.sTexto += getOTActivas(regConta.co_numero_cliente);
+			}
+	
+Ahora si, para la OT própiamente dicha.
+
+	Necesitamos recuperar el Nro.de CB del medidor del cliente, según su marca y modelo. El dato es un String.
+	
+	SELECT mod_nrocb FROM modelo 
+			WHERE mar_codigo = ? 
+			AND mod_codigo = ?
+	
+	Necesitamos recupar el listado de precintos. Lo levantamos en un String Collection
+	Solo me importa recuperar el primer campo del select, así que es un vectorcito
+	
+	SELECT codigo_ubicacion, 
+			fecha_movimiento 
+			FROM sellos 
+			WHERE numero_cliente = ? 
+			AND numero_medidor = ? 
+			AND marca_medidor  = ? 
+			AND estado_insta = '6' 
+			UNION 
+			SELECT '0', 
+			DATE(fecha_estado) 
+			FROM prt_precintos e 
+			WHERE e.numero_cliente = ? 
+			AND e.estado_actual = '08' 
+			AND e.fecha_estado = (SELECT MAX(e2.fecha_estado) 
+			   FROM prt_precintos e2 
+			   WHERE e.numero_cliente = e2.numero_cliente 
+			   AND e.estado_actual = e2.estado_actual ) 
+			ORDER BY 2 DESC 
+	
+		Estas cositas las vamos a necesitar cuando grabemos en OT_MAC_SAP
+		
+	* Grabar en OT_MAC
+	  Para ello yo cree una clase, para cargarla los datos variables YA los tenés.
+	  
+	  ot_macDTO miOtMac = new ot_macDTO(lNroMensaje, miCliente, regTecni, miTema, regPar.dFchaVtoCt, sAreaDestino, sRolOrigen, sArea);
+	  
+	  Te adjunto el archivo JAVA que declara la clase, para que veas como se arman los campos.
+	  Luego...
+		// Inserta en OT_MAC
+			pstm=con.prepareStatement(INS_OT_MAC);
+			
+			pstm.setLong(1, miOtMac.numero_cliente);
+			pstm.setLong(2, miOtMac.mensaje_xnear);
+			pstm.setString(3, miOtMac.proced.trim());
+			pstm.setString(4, miOtMac.envia_sap.trim());
+			pstm.setString(5, miOtMac.estado.trim());
+			pstm.setString(6, miOtMac.status.trim());
+			pstm.setString(7, miOtMac.sucursal_padre.trim());
+			pstm.setString(8, miOtMac.sucursal.trim());
+			pstm.setInt(9, miOtMac.sector);
+			pstm.setInt(10, miOtMac.zona);
+			pstm.setLong(11, miOtMac.correlativo_ruta);
+			pstm.setString(12, miOtMac.tipo_traba.trim());
+			pstm.setString(13, miOtMac.area_interloc.trim());
+			pstm.setString(14, miOtMac.motivo.trim());
+			pstm.setString(15, miOtMac.rol_ejecuta.trim());
+			pstm.setString(16, miOtMac.area_ejecuta.trim());
+			pstm.setDouble(17, miOtMac.potencia);
+			pstm.setString(18, miOtMac.tension.trim());
+			pstm.setString(19, miOtMac.acometida.trim());
+			pstm.setString(20, miOtMac.toma.trim());
+			pstm.setString(21, miOtMac.conexion.trim());
+			pstm.setTimestamp(22, new Timestamp(miOtMac.fecha_vto.getTime()));	  
+	  
+			Donde INS_OT_MAC=
+			INSERT INTO ot_mac ( 
+			ot_numero_cliente, 
+			ot_mensaje_xnear, 
+			ot_proced, 
+			ot_envia_sap, 
+			ot_estado, 
+			ot_fecha_est, 
+			ot_status,
+			ot_fecha_status,
+			ot_fecha_inicio,
+			ot_sucursal_padre,
+			ot_sucursal,
+			ot_sector,
+			ot_zona,
+			ot_corr_ruta,
+			ot_tipo_traba,
+			ot_area_interloc,
+			ot_motivo,
+			ot_rol_ejecuta,
+			ot_area_ejecuta,
+			ot_potencia, 
+			ot_tension,
+			ot_acometida,
+			ot_toma,
+			ot_conexion,
+			ot_fecha_vto
+			)VALUES( 
+			?, ?, ?, ?
+			,?, CURRENT, ?, CURRENT
+			,CURRENT, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+	* Recuperamos el Nro.de OT. (es un SERIAL) en función del nro.de mensaje.
+		long lNroOrdenOT = getNroOt(miOtMac.mensaje_xnear);
+		
+		SELECT o1.ot_nro_orden 
+			FROM ot_mac o1 
+			WHERE o1.ot_mensaje_xnear = ? 
+			AND o1.ot_fecha_inicio = (SELECT MAX(o2.ot_fecha_inicio) FROM ot_mac o2 
+				WHERE o2.ot_mensaje_xnear = o1.ot_mensaje_xnear 
+				AND o2.ot_estado = 'C' )
+	
+	* Insertamos en OT_HISEVEN
+		//Inserta en OT_HISEVEN
+		pstm=con.prepareStatement(INS_OT_HISEVEN);
+		
+		pstm.setLong(1, lNroOrdenOT);
+		pstm.setLong(2, miOtMac.numero_cliente);
+		pstm.setString(3, miOtMac.status.trim());
+	
+		INSERT INTO ot_hiseven ( 
+			ots_nro_orden, 
+			ots_numero_cliente, 
+			ots_status, 
+			ots_fecha, 
+			ots_observac, 
+			ots_fecha_proc 
+			)VALUES( 
+			?, ?, ?, CURRENT, 'INICIADA', CURRENT)
+				
+			
+	* Insertamos en OT_MAC_SAP
+	
+		Te voy a adjuntar la clase ot_mac_sapDTO.java.
+		
+		ot_mac_sapDTO miOtMacSap = new ot_mac_sapDTO(lNroOrdenOT, lNroMensaje, miCliente, regTecni, miTema, regPar.dFchaVtoCt, sAreaDestino, sRolOrigen, sArea, lstPrecintos, sNroCB);
+		String sCodBar = miOtMacSap.cod_barra.substring(0,2);
+		
+		pstm=con.prepareStatement(INS_OT_MAC_SAP);
+		
+		pstm.setString(1, miOtMacSap.tipo_ifaz);
+		pstm.setString(2, miOtMacSap.nro_orden);
+		pstm.setString(3, miOtMacSap.tipo_traba);
+		pstm.setString(4, miOtMacSap.sucursal);
+		pstm.setString(5, miOtMacSap.area_ejecuta);
+		pstm.setString(6, miOtMacSap.motivo);
+		pstm.setString(7, miOtMacSap.obs_dir);
+		pstm.setString(8, miOtMacSap.obs_lectu);
+		pstm.setString(9, miOtMacSap.obs_segen);
+		pstm.setString(10, miOtMacSap.area_interloc);
+		pstm.setLong(11, miOtMacSap.nro_medidor);
+		pstm.setString(12, miOtMacSap.marca_med);
+		pstm.setString(13, miOtMacSap.modelo_med);
+		pstm.setString(14, miOtMacSap.cla_servi);
+		pstm.setDouble(15, miOtMacSap.potencia);
+		pstm.setString(16, miOtMacSap.tension);
+		pstm.setString(17, miOtMacSap.acometida);
+		pstm.setString(18, miOtMacSap.toma);
+		pstm.setString(19, miOtMacSap.conexion);
+		pstm.setString(20, miOtMacSap.pre1_ubic);
+		pstm.setString(21, miOtMacSap.pre2_ubic);
+		pstm.setString(22, miOtMacSap.pre3_ubic);
+		pstm.setString(23, miOtMacSap.ruta_lectura);
+		pstm.setString(24, miOtMacSap.nombre_cli);
+		pstm.setLong(25, miOtMacSap.nro_cli);
+		pstm.setString(26, miOtMacSap.nom_entre);
+		pstm.setString(27, miOtMacSap.nom_entre1);
+		pstm.setString(28, miOtMacSap.telefono);
+		pstm.setString(29, miOtMacSap.nom_calle);
+		pstm.setString(30, miOtMacSap.nro_dir);
+		pstm.setString(31, miOtMacSap.nom_partido);
+		pstm.setString(32, miOtMacSap.piso_dir);
+		pstm.setString(33, miOtMacSap.depto_dir);
+		pstm.setString(34, miOtMacSap.nom_comuna);
+		pstm.setInt(35, miOtMacSap.cod_postal);
+		pstm.setTimestamp(36, new Timestamp(miOtMacSap.fecha_vto.getTime()));
+		pstm.setString(37, sCodBar);
+		pstm.setString(38, miOtMacSap.rol_creador);
+		pstm.setString(39, miOtMacSap.nombre_rol);
+		pstm.setString(40, miOtMacSap.proced);
+		pstm.setLong(41, miOtMacSap.nro_proced);
+	
+		INSERT INTO ot_mac_sap (
+			oms_tipo_ifaz,
+			oms_nro_orden,
+			oms_tipo_traba,
+			oms_sucursal,
+			oms_area_ejecuta,
+			oms_motivo,
+			oms_fecha_ini,
+			oms_obs_dir,
+			oms_obs_lectu,
+			oms_obs_segen, 
+			oms_area_interloc,
+			oms_nro_medidor,
+			oms_marca_med,
+			oms_modelo_med,
+			oms_cla_servi,
+			oms_potencia,
+			oms_tension,
+			oms_acometida,
+			oms_toma,
+			oms_conexion,
+			oms_pre1_ubic,
+			oms_pre2_ubic,
+			oms_pre3_ubic,
+			oms_ruta_lectura,
+			oms_nombre_cli,
+			oms_nro_cli,
+			oms_nom_entre,
+			oms_nom_entre1,
+			oms_telefono,
+			oms_nom_calle,
+			oms_nro_dir, 
+			oms_nom_partido,
+			oms_piso_dir,
+			oms_depto_dir,
+			oms_nom_comuna,
+			oms_cod_postal,
+			oms_fecha_vto,
+			oms_codbar,
+			oms_rol_creador,
+			oms_nombre_rol,
+			oms_proced,
+			oms_nro_proced
+			)VALUES(
+			?, ?, ?, ?, ?, ?, CURRENT,
+			?, ?, ?, ?, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?, ?,
+			?, ?, ?, ?, ?, ?, ?, ?)
+			
+Y ESO SERIA TODO PARA GENERAR OT PARA UN CONTACTO-SEGEN
+

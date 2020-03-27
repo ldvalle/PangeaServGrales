@@ -1,0 +1,22 @@
+
+Ate.Comercial.
+Para agregar un nuevo insert asociado al segen/orden
+
+Modificar
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/Headers.java
+Modificar
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/CrearSegenMac.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/MacCrearOrden.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/beans/ParamUtils.java
+Crear
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/EtapaOrden.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/EtapaOrdenBuilder.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertEtapaOrden.sql
+Crear
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/ContactoSegen.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/ContactoSegenBuilder.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertContactoSegen.sql
+
+
+
+
