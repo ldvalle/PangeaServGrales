@@ -9,11 +9,15 @@ Modificar
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/MacCargarDatos.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/CrearSegenMac.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/beans/ParamUtils.java
-
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/datosTecnicos.sql
 
 Crear
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/listadoPrecintos.sql
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/OtMac.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/OtMacBuilder.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertOtMac.sql
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/selectOtNroOrden.sql
+
 
 ot_mac
 ot_hiseven

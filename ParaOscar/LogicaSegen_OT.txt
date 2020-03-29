@@ -184,7 +184,6 @@ Ahora si, para la OT própiamente dicha.
 		
 		pstm.setLong(1, lNroOrdenOT);
 		pstm.setLong(2, miOtMac.numero_cliente);
-		pstm.setString(3, miOtMac.status.trim());
 	
 		INSERT INTO ot_hiseven ( 
 			ots_nro_orden, 
@@ -194,7 +193,7 @@ Ahora si, para la OT própiamente dicha.
 			ots_observac, 
 			ots_fecha_proc 
 			)VALUES( 
-			?, ?, ?, CURRENT, 'INICIADA', CURRENT)
+			?, ?, 'INIC', CURRENT, 'INICIADA', CURRENT)
 				
 			
 	* Insertamos en OT_MAC_SAP
