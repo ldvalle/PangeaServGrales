@@ -22,7 +22,9 @@ public class DatosTecnicos {
     private String alimentador;
     private String subestacion;
     private String nombreSubestacion;
-
+	private String acometida;
+	private String tipo_conexion;
+	
     public String getCodigoVoltaje() {
         return codigoVoltaje;
     }
@@ -191,6 +193,22 @@ public class DatosTecnicos {
         this.nombreSubestacion = nombreSubestacion;
     }
 
+
+    public String getAcometida() {
+        return this.acometida;
+    }
+    public void setAcometida(String acometida) {
+        this.acometida = acometida;
+    }
+
+    public String getTipoConexion() {
+        return this.tipo_conexion;
+    }
+    public void setTipoConexion(String conexion) {
+        this.tipo_conexion = conexion;
+    }
+
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("DatosTecnicos{");
@@ -215,6 +233,10 @@ public class DatosTecnicos {
         sb.append(", alimentador='").append(alimentador).append('\'');
         sb.append(", subestacion='").append(subestacion).append('\'');
         sb.append(", nombreSubestacion='").append(nombreSubestacion).append('\'');
+        sb.append(", acometida='").append(acometida).append('\'');
+        sb.append(", tipo_conexion='").append(tipo_conexion).append('\'');
+        
+        
         sb.append('}');
         return sb.toString();
     }

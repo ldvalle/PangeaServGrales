@@ -8,6 +8,7 @@ SELECT trim(codigo_voltaje) codigo_voltaje,
        trim(tec_cod_ycalle) codigo_entre_calle2, trim(tec_entre_calle2) entre_calle2,
        trim(tec_manzana) manzana,
        trim(tec_centro_trans) centro_transformacion, trim(tec_alimentador) alimentador,
-       trim(tec_subestacion) subestacion, trim(tec_nom_subest) nombre_subestacion
+       trim(tec_subestacion) subestacion, trim(tec_nom_subest) nombre_subestacion,
+       trim(acometida) acometida, trim(tipo_conexion) tipo_conexion
   FROM tecni
  WHERE numero_cliente = :#${headers.NumeroCliente}

@@ -37,7 +37,9 @@ public class Cliente {
     private String modeloMedidor; //LDV
     private String mod_nrocb; //LDV
     private String suc_padre; //LDV
-    private Collection<String> lstPrecintos; //LDV
+    private Collection<String> lstPrecintos = new ArrayList<>(); //LDV
+    private Double potenciaContrato; //LDV
+	private String tipoEmpalme;
 	
     public int getNumero() {
         return numero;
@@ -298,6 +300,20 @@ public class Cliente {
 		this.lstPrecintos= miLst;
 	}
 	
+	public Double getPotenciaContrato(){
+		return this.potenciaContrato;
+	}
+	public void setPotenciaContrato(Double potencia){
+		this.potenciaContrato = potencia;
+	}
+	
+	public String getTipoEmpalme(){
+		return this.tipoEmpalme;
+	}
+	public void setTipoEmpalme(String empalme){
+		this.tipo_empalme= empalme;
+	}
+	
     public String getDireccion() {
         StringBuilder builder = new StringBuilder();
         builder.append(calle);
@@ -344,7 +360,7 @@ public class Cliente {
         sb.append(", modeloMedidor='").append(modeloMedidor).append('\'');
         sb.append(", mod_nrocb='").append(mod_nrocb).append('\'');
         sb.append(", suc_padre='").append(suc_padre).append('\'');
-        
+        sb.append(", potenciaContrato=").append(potenciaContrato);
         sb.append('}');
         return sb.toString();
     }

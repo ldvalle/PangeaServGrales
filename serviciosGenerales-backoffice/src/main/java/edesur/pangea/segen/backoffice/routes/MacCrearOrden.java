@@ -64,5 +64,24 @@ public class MacCrearOrden extends BaseRouteBuilder {
                 .to(CamelUtil.sqlUri("insertRecRecUni", Configuracion.SYNERGIA_DS));
                 
 //TODO para las OTs                
+        from("direct:crear-ot-mac")
+                .routeId("crear-ot-mac")
+                .setHeader(Headers.OT_MAC, method(OtMacBuilder.class, "crear"))
+                .log(LoggingLevel.DEBUG, logname, CamelUtil.simpleHeader(Headers.OT_MAC));
+
+        from("direct:grabar-ot-mac")
+                .routeId("grabar-ot-mac")
+                .bean(ParamsUtils.class, "getOtMacProperties")
+                .to(CamelUtil.sqlUri("insertOtMac", Configuracion.SYNERGIA_DS));
+                
+                
+		from("direct:grabar-ot-hiseven")
+				.routeId("grabar-ot-hiseven")
+				.to(CamelUtil.sqlUri("selectOtNroOrden", Configuracion.SYNERGIA_DS, "outputType=SelectOne", "outputHeader=" + Headers.SQL_OUTPUT))
+				.log(LoggingLevel.DEBUG, logname, CamelUtil.stringWithHeaders("Numero Orden OT %s", Headers.SQL_OUTPUT))
+                .bean(ParamsUtils.class, "getOtHisEvenProperties")
+                .to(CamelUtil.sqlUri("insertOtHiseven", Configuracion.SYNERGIA_DS));
+                
+       
     }
 }
