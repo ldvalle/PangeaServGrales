@@ -13,7 +13,8 @@ SELECT c.numero_cliente numero, trim(c.nombre) nombre, trim(c.tip_doc) tipo_docu
        cod_entre codigo_entre_calle1, nom_entre entre_calle1,
        cod_entre1 codigo_entre_calle2, nom_entre1 entre_calle2,
        m.marca_medidor, m.modelo_medidor, md.mod_nrocb, o.suc_padre,
-       c.potencia_contrato, c.tipo_empalme
+       c.potencia_contrato, c.tipo_empalme, c.obs_dir, c.info_adic_lectura,
+       c.tipo_cliente, c.barrio, trim(c.nom_barrio) nom_barrio
   FROM cliente c JOIN medid m ON (c.numero_cliente = m.numero_cliente AND m.estado = 'I')
 	JOIN modelo md ON(md.mar_codigo = m.marca_medidor AND md.mod_codigo = m.modelo_medidor )
 	OUTER JOIN ot_sucursal o (o.suc_hijo = c.sucursal)

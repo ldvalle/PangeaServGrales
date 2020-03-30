@@ -30,7 +30,7 @@ public class ot_mac_sap{
 	private String	pre3_ubic="";
 	private String	ruta_lectura="";
 	private String	nombre_cli="";
-	private Long		nro_cli;
+	private Long	nro_cli;
 	private String	nom_entre="";
 	private String	nom_entre1="";
 	private String	telefono="";
@@ -343,6 +343,57 @@ public class ot_mac_sap{
 		return this.cod_barra;
 	}
 	
-
+    @Override
+    public String toString() {
+		int i=0;
+		
+        final StringBuilder sb = new StringBuilder("OtMacSap{");
+		sb.append("nro_orden='").append(nro_orden).append('\'');
+		sb.append(", tipo_ifaz='").append(tipo_ifaz).append('\'');
+		sb.append(", tipo_traba='").append(tipo_traba).append('\'');
+		sb.append(", sucursal='").append(sucursal).append('\'');
+		sb.append(", area_ejecuta='").append(area_ejecuta).append('\'');
+		sb.append(", motivo='").append(motivo).append('\'');
+		sb.append(", obs_dir='").append(obs_dir).append('\'');
+		sb.append(", obs_lectu='").append(obs_lectu).append('\'');
+		sb.append(", obs_segen='").append(obs_segen).append('\'');
+		sb.append(", area_interloc='").append(area_interloc).append('\'');
+		sb.append(", nro_medidor=").append(nro_medidor);
+		sb.append(", marca_med='").append(marca_med).append('\'');
+		sb.append(", modelo_med='").append(modelo_med).append('\'');
+		sb.append(", cla_servi='").append(cla_servi).append('\'');
+		sb.append(", potencia=").append(potencia);
+		sb.append(", tension='").append(tension).append('\'');
+		sb.append(", acometida='").append(acometida).append('\'');
+		sb.append(", toma='").append(toma).append('\'');
+		sb.append(", conexion='").append(conexion).append('\'');
+		sb.append(", pre1_ubic='").append(pre1_ubic).append('\'');
+		sb.append(", pre2_ubic='").append(pre2_ubic).append('\'');
+		sb.append(", pre3_ubic='").append(pre3_ubic).append('\'');
+		sb.append(", ruta_lectura='").append(ruta_lectura).append('\'');
+		sb.append(", ruta_lectura='").append(ruta_lectura).append('\'');
+		sb.append(", nro_cli=").append(nro_cli);
+		sb.append(", nom_entre='").append(nom_entre).append('\'');
+		sb.append(", nom_entre1='").append(nom_entre1).append('\'');		
+		sb.append(", telefono='").append(telefono).append('\'');
+		sb.append(", nom_calle='").append(nom_calle).append('\'');
+		sb.append(", nro_dir='").append(nro_dir).append('\'');
+		sb.append(", nom_partido='").append(nom_partido).append('\'');
+		sb.append(", piso_dir='").append(piso_dir).append('\'');
+		sb.append(", depto_dir='").append(depto_dir).append('\'');
+		sb.append(", nom_comuna='").append(nom_comuna).append('\'');
+		sb.append(", cod_postal=").append(cod_postal);
+		sb.append(", fecha_vto=").append(fecha_vto);
+		sb.append(", rol_creador='").append(rol_creador).append('\'');
+		sb.append(", nombre_rol='").append(nombre_rol).append('\'');
+		sb.append(", proced='").append(proced).append('\'');
+		sb.append(", nro_proced=").append(nro_proced);
+		sb.append(", cod_barrio='").append(cod_barrio).append('\'');
+		sb.append(", nom_barrio='").append(nom_barrio).append('\'');
+		sb.append(", cod_barra='").append(cod_barra).append('\'');
+        sb.append('}');
+        
+        return sb.toString();
+    }
 
 }

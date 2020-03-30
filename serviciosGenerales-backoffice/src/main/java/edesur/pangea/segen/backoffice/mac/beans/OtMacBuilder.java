@@ -6,15 +6,16 @@ import org.apache.camel.Header;
 
 public class OtMacBuilder {
     public OtMac crear(
-            @Header(Headers.DATOS_CLIENTE) DatosCliente cliente
+            @Header(Headers.DATOS_CLIENTE) DatosCliente cliente,
             @Header(Headers.PROCEDIMIENTO)Procedimiento procedimiento,
             @Header(Headers.TEMA_TRABAJO) TemaTrabajo temaTrabajo,
             @Header(Headers.AREA_DESTINO) String areaDestino,
             @Header(Headers.CONTACTO_SEGEN) ContactoSegen ctoSegen,
             @Header(Headers.DATOS_TECNICOS) DatosTecnicos dataTecni,
-            @Header(Headers.PARAMETROS_CONTACTO) Parametros parametros,
+            @Header(Headers.PARAMETROS_CONTACTO) Parametros parametros
             ) {
 		OtMac r = new OtMac();
+		CodigoDescripcion cd = new CodigoDescripcion();
 
 		r.setNumeroCliente(cliente.getNumero());
 		r.setMensajeXnear(procedimiento.getNumeroMensaje());
@@ -23,9 +24,9 @@ public class OtMacBuilder {
 		r.setSector(cliente.getPlan());
 		r.setZona(cliente.getZona());
 		r.setCorrelativoRuta(cliente.getCorrelativoRuta());
-		r.setTipoTraba("SE" + temaTrabajo.getTema.getCodigo.substring(0,2));
+		r.setTipoTraba("SE" + cd.getCodigo(temaTrabajo.getTema()).substring(0,2));
 		r.setAreaInterloc(areaDestino);
-		r.setMotivo(temaTrabajo.getTrabajo.getCodigo.substring(0,4));
+		r.setMotivo(cd.getCodigo(temaTrabajo.getTrabajo()).substring(0,4));
 		r.setRolEjecuta(ctoSegen.getRolCreacion());
 		r.setAreaEjecuta(ctoSegen.getAreaCreacion());
 		r.setPotencia()cliente.getPotenciaContrato());

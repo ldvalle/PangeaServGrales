@@ -39,7 +39,13 @@ public class Cliente {
     private String suc_padre; //LDV
     private Collection<String> lstPrecintos = new ArrayList<>(); //LDV
     private Double potenciaContrato; //LDV
-	private String tipoEmpalme;
+	private String tipoEmpalme; //LDV
+	private String obsDir; //LDV
+	private String obsLectura; //LDV
+	private String tipoCliente; //LDV
+	private String codBarrio; //LDV
+	private String nomBarrio; //LDV
+	
 	
     public int getNumero() {
         return numero;
@@ -314,6 +320,41 @@ public class Cliente {
 		this.tipo_empalme= empalme;
 	}
 	
+	public String getObsDir(){
+		return this.obs_dir;
+	}
+	public void setObsDir(String obs){
+		this.obs_dir= obs;
+	}
+
+	public String getObsLectu(){
+		return this.obs_lectura;
+	}
+	public void setObsLectu(String obs){
+		this.obs_lectura= obs;
+	}		
+
+	public String getTipoCliente(){
+		return this.tipoCliente;
+	}
+	public void setTipoCliente(String tipo){
+		this.tipoCliente= tipo;
+	}
+			
+	public String getCodBarrio(){
+		return this.codBarrio;
+	}
+	public void setCodBarrio(String barrio){
+		this.codBarrio= barrio;
+	}
+
+	public String getNomBarrio(){
+		return this.nomBarrio;
+	}
+	public void setNomBarrio(String barrio){
+		this.nomBarrio= barrio;
+	}	
+				
     public String getDireccion() {
         StringBuilder builder = new StringBuilder();
         builder.append(calle);
@@ -361,6 +402,13 @@ public class Cliente {
         sb.append(", mod_nrocb='").append(mod_nrocb).append('\'');
         sb.append(", suc_padre='").append(suc_padre).append('\'');
         sb.append(", potenciaContrato=").append(potenciaContrato);
+        sb.append(", tipoEmpalme='").append(tipoEmpalme).append('\'');
+        sb.append(", obs_dir='").append(obs_dir).append('\'');
+        sb.append(", obs_lectura='").append(obs_lectura).append('\'');
+        sb.append(", tipoCliente='").append(tipoCliente).append('\'');
+        sb.append(", codBarrio='").append(codBarrio).append('\'');
+        sb.append(", nomBarrio='").append(nomBarrio).append('\'');
+        
         sb.append('}');
         return sb.toString();
     }
