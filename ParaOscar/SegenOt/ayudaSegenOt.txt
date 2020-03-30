@@ -7,6 +7,7 @@ Modificar
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/temaTrabajo.sql
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/TemaTrabajo.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/MacCargarDatos.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/MacCrearOrden.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/CrearSegenMac.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/beans/ParamUtils.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/datosTecnicos.sql
@@ -17,22 +18,7 @@ Crear
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/OtMacBuilder.java
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertOtMac.sql
 /interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/selectOtNroOrden.sql
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/OtMacSap.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/OtMacSapBuilder.java
+/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertOtMacSap.sql
 
-
-ot_mac
-ot_hiseven
-ot_mac_sap
-
-
-Modificar
-
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/routes/MacCrearOrden.java
-
-Crear
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/EtapaOrden.java
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/EtapaOrdenBuilder.java
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertEtapaOrden.sql
-Crear
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/model/ContactoSegen.java
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/java/edesur/pangea/segen/backoffice/mac/beans/ContactoSegenBuilder.java
-/interface-pangea-segen/serviciosGenerales/serviciosGenerales-backoffice/src/main/resources/sql/insertContactoSegen.sql
