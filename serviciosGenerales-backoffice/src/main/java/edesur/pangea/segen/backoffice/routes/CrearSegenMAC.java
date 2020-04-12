@@ -48,7 +48,7 @@ public class CrearSegenMAC extends BaseRouteBuilder {
                 .end()
                 // Inicio LDV
                 .choice()
-					.when(header(Headers.GENERA_OT).isEqual("OT"))
+					.when(header(Headers.GENERA_OT).isEqualTo("OT"))
 						.to("direct:crear-ot_mac")
 						.to("direct:grabar-ot_mac")
 						.to("direct:grabar-ot-hiseven")

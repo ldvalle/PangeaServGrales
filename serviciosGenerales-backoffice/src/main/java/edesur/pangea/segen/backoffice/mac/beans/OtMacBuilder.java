@@ -29,15 +29,15 @@ public class OtMacBuilder {
 		r.setMotivo(cd.getCodigo(temaTrabajo.getTrabajo()).substring(0,4));
 		r.setRolEjecuta(ctoSegen.getRolCreacion());
 		r.setAreaEjecuta(ctoSegen.getAreaCreacion());
-		r.setPotencia()cliente.getPotenciaContrato());
+		r.setPotencia(cliente.getPotenciaContrato());
 		r.setTension(dataTecni.getCodigoVoltaje());
-
-		if(dtaTecni.getAcometida() != null)
-			r.setAcometida(dataTecni.getAcometida());
+		String sAcometida=dataTecni.getAcometida();
+		if(sAcometida != null)
+			r.setAcometida(sAcometida);
 			
 		r.setToma(cliente.getTipoEmpalme());
 		r.setConexion(dataTecni.getTipoConexion());
-		r.setFechaVto(parametros.calcularFechaVencimiento(ctoSegen.gettFechaModif(), Parametros.TipoVencimiento.CT));
+		r.setFechaVto(parametros.calcularFechaVencimiento(ctoSegen.getFechaModif(), Parametros.TipoVencimiento.CT));
 
         return  r;
     }

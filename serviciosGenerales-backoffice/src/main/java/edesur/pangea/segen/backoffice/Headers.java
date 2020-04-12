@@ -22,5 +22,5 @@ public interface Headers extends edesur.pangea.config.Headers {
     String GENERA_OT = "GeneraOt"; //LDV
     String OT_MAC = "OtMac"; //LDV
     String OT_HISEVEN = "OtHisEven"; //LDV
-    String OT_MAC_SAP = "OtMacSap", //LDV 
+    String OT_MAC_SAP = "OtMacSap"; //LDV 
 }

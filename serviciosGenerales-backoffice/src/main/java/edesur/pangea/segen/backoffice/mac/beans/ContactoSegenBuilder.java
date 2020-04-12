@@ -9,7 +9,7 @@ public class ContactoSegenBuilder {
             @Header(Headers.CONTACTO) Contacto contacto,
             @Header(Headers.PROCEDIMIENTO)Procedimiento procedimiento,
             @Header(Headers.TEMA_TRABAJO) TemaTrabajo temaTrabajo,
-            @Header(Headers.ORDEN) Orden orden,
+            @Header(Headers.ORDEN) Orden orden
             ) {
         ContactoSegen r = new ContactoSegen();
 
@@ -18,7 +18,7 @@ public class ContactoSegenBuilder {
 		r.setOrden(orden.getNumeroOrden());
 		r.setMotEmpresa(contacto.getMotivoEmpresa());
 		r.setMotCliente(contacto.getMotivo());
-		r.setNroContacto(contacto.getNumero())
+		r.setNroContacto(contacto.getNumero());
 		r.setSucContacto(contacto.getSucContacto());
 		r.setFechaCreacion(contacto.getFechaInicio());
 		r.setRolCreacion(contacto.getRolInicio());

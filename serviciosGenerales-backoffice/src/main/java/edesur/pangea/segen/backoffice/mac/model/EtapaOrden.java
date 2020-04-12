@@ -6,7 +6,7 @@ import java.util.Date;
 
 //LDV
 
-public class Orden {
+public class EtapaOrden {
     private long mensajeXnear;
     private static final String identEtapa = "RQ";
     private Date fechaIinicio = new Date();
@@ -25,10 +25,6 @@ public class Orden {
         return identEtapa;
     }
 
-    public void setIdentEtapa(String identEtapa) {
-        this.identEtapa = identEtapa;
-    }
-    
     public void setFechaIinicio(Date fechaIinicio) {
         this.fechaIinicio = fechaIinicio;
     }

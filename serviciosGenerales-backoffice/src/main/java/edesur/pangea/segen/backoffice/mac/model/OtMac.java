@@ -90,7 +90,7 @@ public class OtMac {
 	public void setCorrelativoRuta(long correlativo){
 		this.correlativo_ruta=correlativo;
 	}
-	public int getCorrelativoRuta(){
+	public long getCorrelativoRuta(){
 		return this.correlativo_ruta;
 	}
 	

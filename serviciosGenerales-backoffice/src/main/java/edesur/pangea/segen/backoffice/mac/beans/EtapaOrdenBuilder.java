@@ -21,12 +21,15 @@ public class EtapaOrdenBuilder {
     public void setNumeroSegen(@Header(Headers.PROCEDIMIENTO) Procedimiento procedimiento, @Header(Headers.ETAPA_ORDEN) EtapaOrden eOrden) {
         eOrden.setMensajeXnear(procedimiento.getNumeroMensaje());
     }
-
+/*
     public Map<String, String> getDatosExtra(
-            @Header(Headers.ETAPA_ORDEN)EtapaOrden eOrden
+            @Header(Headers.ETAPA_ORDEN)EtapaOrden eOrden,
+            @Header(Headers.PROCEDIMIENTO)Procedimiento p
     ) {
         Map<String, String> datosExtra = new HashMap<>();
-        datosExtra.put(ClavesDatosExtra.NumeroMensaje, orden.getNumeroMensaje());
+
+        datosExtra.put(ClavesDatosExtra.NumeroMensaje, p.getNumeroMensaje());
         return datosExtra;
     }
+*/
 }

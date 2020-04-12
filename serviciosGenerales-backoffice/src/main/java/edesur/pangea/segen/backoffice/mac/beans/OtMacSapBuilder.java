@@ -11,13 +11,10 @@ public class OtMacSapBuilder {
             @Header(Headers.TEMA_TRABAJO) TemaTrabajo temaTrabajo,
             @Header(Headers.AREA_DESTINO) String areaDestino,
             @Header(Headers.CONTACTO_SEGEN) ContactoSegen ctoSegen,
-            
             @Header(Headers.PARAMETROS_CONTACTO) Parametros parametros,
-            
             @Header(Headers.OT_MAC) OtMac ot,
             @Header(Headers.DATOS_CLIENTE) DatosCliente cliente,
-            @Header(Headers.TEMA_TRABAJO) TemaTrabajo temaTrabajo,
-            @Header(Headers.DATOS_TECNICOS) DatosTecnicos dataTecni,
+            @Header(Headers.DATOS_TECNICOS) DatosTecnicos dataTecni
             ) {
 		OtMacSap r = new OtMacSap();
 		CodigoDescripcion cd = new CodigoDescripcion();
@@ -31,7 +28,7 @@ public class OtMacSapBuilder {
 		//r.setNroOrden();
 		r.setTipoTraba(ot.getTipoTraba());
 		r.setSucursal(ot.getSucursal());
-		r.setAreaEjecuta(ot.getAreaEjecuta);
+		r.setAreaEjecuta(ot.getAreaEjecuta());
 		r.setMotivo(r.getMotivo());
 		r.setObsDir(cliente.getObsDir());
 		r.setObsLectu(cliente.getObsLectu());
@@ -44,7 +41,7 @@ public class OtMacSapBuilder {
 		r.setPotencia(cliente.getPotenciaContrato());
 		r.setTension(dataTecni.getCodigoVoltaje());
 		
-		if(dtaTecni.getAcometida() != null)
+		if(dataTecni.getAcometida() != null)
 			r.setAcometida(dataTecni.getAcometida());
 
 		r.setToma(cliente.getTipoEmpalme());

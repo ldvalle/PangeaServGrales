@@ -7,6 +7,10 @@ import edesur.pangea.segen.backoffice.mac.beans.OrdenBuilder;
 import edesur.pangea.segen.backoffice.mac.beans.RecRecUniBuilder;
 import edesur.pangea.segen.backoffice.mac.beans.SegenBuilder;
 import edesur.pangea.segen.backoffice.mac.beans.ContactoBuilder; //LDV
+import edesur.pangea.segen.backoffice.mac.beans.EtapaOrdenBuilder; //LDV
+import edesur.pangea.segen.backoffice.mac.beans.OtMacBuilder; //LDV
+import edesur.pangea.segen.backoffice.mac.beans.OtMacSapBuilder; //LDV
+import edesur.pangea.segen.backoffice.mac.beans.ContactoSegenBuilder; //LDV
 import edesur.pangea.util.CamelUtil;
 import org.apache.camel.LoggingLevel;
 

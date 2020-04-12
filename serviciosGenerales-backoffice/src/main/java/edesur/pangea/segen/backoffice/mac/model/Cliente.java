@@ -1,7 +1,7 @@
 package edesur.pangea.segen.backoffice.mac.model;
 
 import org.apache.commons.lang3.StringUtils;
-import java.utli.Collection;
+import java.util.Collection;
 import java.util.Vector;
 
 public class Cliente {
@@ -317,21 +317,21 @@ public class Cliente {
 		return this.tipoEmpalme;
 	}
 	public void setTipoEmpalme(String empalme){
-		this.tipo_empalme= empalme;
+		this.tipoEmpalme= empalme;
 	}
 	
 	public String getObsDir(){
-		return this.obs_dir;
+		return this.obsDir;
 	}
 	public void setObsDir(String obs){
-		this.obs_dir= obs;
+		this.obsDir= obs;
 	}
 
 	public String getObsLectu(){
-		return this.obs_lectura;
+		return this.obsLectura;
 	}
 	public void setObsLectu(String obs){
-		this.obs_lectura= obs;
+		this.obsLectura= obs;
 	}		
 
 	public String getTipoCliente(){
@@ -403,8 +403,8 @@ public class Cliente {
         sb.append(", suc_padre='").append(suc_padre).append('\'');
         sb.append(", potenciaContrato=").append(potenciaContrato);
         sb.append(", tipoEmpalme='").append(tipoEmpalme).append('\'');
-        sb.append(", obs_dir='").append(obs_dir).append('\'');
-        sb.append(", obs_lectura='").append(obs_lectura).append('\'');
+        sb.append(", obsDir='").append(obsDir).append('\'');
+        sb.append(", obsLectura='").append(obsLectura).append('\'');
         sb.append(", tipoCliente='").append(tipoCliente).append('\'');
         sb.append(", codBarrio='").append(codBarrio).append('\'');
         sb.append(", nomBarrio='").append(nomBarrio).append('\'');

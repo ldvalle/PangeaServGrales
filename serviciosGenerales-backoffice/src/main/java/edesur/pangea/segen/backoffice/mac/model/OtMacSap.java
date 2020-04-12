@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Collection;
 import java.util.Vector;
 
-public class ot_mac_sap{
+public class OtMacSap{
 	private String	nro_orden;
 	private static final String	tipo_ifaz="G001";
 	private String	tipo_traba="";
@@ -105,7 +105,7 @@ public class ot_mac_sap{
 	}
 
 	public void setObsSegen(String obs){
-		this.obs_Segen=obs;
+		this.obs_segen=obs;
 	}
 	public String getObsSegen(){
 		return this.obs_segen;
@@ -304,7 +304,7 @@ public class ot_mac_sap{
 		this.rol_creador=rol;
 	}
 	public String getRolCreador(){
-		return this.rol_credor;
+		return this.rol_creador;
 	}
 
 	public String getNombreRol(){
@@ -318,7 +318,7 @@ public class ot_mac_sap{
 	public void setNroProced(Long proced){
 		this.nro_proced=proced;
 	}
-	public String getNroProced(){
+	public Long getNroProced(){
 		return this.nro_proced;
 	}
 	
